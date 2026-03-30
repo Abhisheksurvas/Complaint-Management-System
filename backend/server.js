@@ -50,6 +50,7 @@ const Admin = mongoose.model("Admin", new mongoose.Schema({
 // Complaint Model
 const Complaint = mongoose.model("Complaint", new mongoose.Schema({
   username: { type: String, required: true },
+  email: { type: String, required: true },
   complaintText: { type: String, required: true },
   date: { type: Date, required: true },
   location: { type: String, required: true },
@@ -267,9 +268,10 @@ app.get("/api/admin/profile", authenticateToken, async (req, res) => {
 // Complaint Routes
 app.post("/submit-complaint", upload.single("image"), async (req, res) => {
   try {
-    const { username, complaintText, date, location, subLocation, roomNo } = req.body;
+    const { username, email, complaintText, date, location, subLocation, roomNo } = req.body;
     const complaint = new Complaint({
       username,
+      email,
       complaintText,
       date,
       location,
@@ -302,7 +304,9 @@ app.post("/submit-complaint", upload.single("image"), async (req, res) => {
 
 app.get("/get-complaints", async (req, res) => {
   try {
-    const complaints = await Complaint.find();
+    const { username } = req.query;
+    const filter = username ? { username } : {};
+    const complaints = await Complaint.find(filter);
     const complaintsWithImages = complaints.map(complaint => {
       if (complaint.image?.data) {
         const base64Image = complaint.image.data.toString("base64");
@@ -375,11 +379,12 @@ app.post("/update-status/:id", async (req, res) => {
   }
 });
 
-// Get all status records (latest status for each complaint)
+// Get status records (latest status for each complaint)
 app.get('/get-status', async (req, res) => {
   try {
-    // Get latest status for each unique complaintId
-    const statuses = await Status.aggregate([
+    const { email, username } = req.query;
+
+    const pipeline = [
       {
         $sort: { updatedAt: -1 }
       },
@@ -403,8 +408,21 @@ app.get('/get-status', async (req, res) => {
       {
         $unwind: '$complaintId'
       }
-    ]);
+    ];
 
+    if (email || username) {
+      const orConditions = [];
+      if (email) orConditions.push({ 'complaintId.email': email });
+      if (username) orConditions.push({ 'complaintId.username': username });
+      
+      pipeline.push({
+        $match: {
+          $or: orConditions
+        }
+      });
+    }
+
+    const statuses = await Status.aggregate(pipeline);
     res.json(statuses);
   } catch (error) {
     console.error("Fetch Status Error:", error);

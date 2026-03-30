@@ -32,6 +32,7 @@ const UserLogin = () => {
         localStorage.setItem('token', result.token);
         localStorage.setItem('userRole', 'user');
         localStorage.setItem('userName', formData.username);
+        localStorage.setItem('user', JSON.stringify(result.user));
         navigate('/user/dashboard', { replace: true });
       } else {
         alert(result.error || 'Login failed');

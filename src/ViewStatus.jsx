@@ -85,7 +85,11 @@ const ViewStatus = () => {
 
   // Fetch status data
   useEffect(() => {
-    fetch(`${API_BASE}/get-status`)
+    const user = JSON.parse(localStorage.getItem("user"));
+    const email = user ? user.email : "";
+    const username = user ? user.username : "";
+    
+    fetch(`${API_BASE}/get-status?email=${email}&username=${username}`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch status");
         return res.json();

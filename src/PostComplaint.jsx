@@ -109,16 +109,16 @@ const PostComplaint = () => {
             type="text"
             placeholder="Username"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
+            readOnly
+            className="read-only-input"
           />
 
           <input
             type="email"
             placeholder="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+            readOnly
+            className="read-only-input"
           />
 
           <input 

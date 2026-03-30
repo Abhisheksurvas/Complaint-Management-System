@@ -107,6 +107,13 @@
   font-size: 1rem;
 }
 
+.read-only-input {
+  background-color: #f0f2f5;
+  color: #555;
+  cursor: not-allowed;
+  border-color: #ddd !important;
+}
+
 .complaint-form textarea {
   height: 120px;
   resize: none;
