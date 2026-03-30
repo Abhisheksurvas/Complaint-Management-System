@@ -1,0 +1,415 @@
+.user-login-box {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   min-width: 100%;
+ }
+
+ .user-login-box .container {
+      display: flex;
+      width: 100%;
+      max-width: 900px;
+      height: 500px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border: 3px solid #ff6b6b;
+    }
+
+    .user-login-box .left-panel {
+      flex: 1;
+      background: rgb(204, 200, 200);
+      padding:  40px;
+      margin: -91px 0px -40px -40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: white;
+    }
+
+    .user-login-box .right-panel {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.818); /* Dark green */
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+     margin: -80px -40px -40px -15px;      
+      align-items: center;
+      color: white;
+      text-align: center;
+    }
+
+   .user-login-box h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      font-weight: 600;
+      color: #9c27b0; /* Purple like Image 2 */
+    }
+
+   .user-login-box .form-group {
+      margin-bottom: 20px;
+    }
+
+   .user-login-box label {
+      display: block;
+      margin-bottom: 8px;
+      color: #cccccc;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+  .user-login-box input {
+      width: 100%;
+      padding: 13px 17px;
+      margin: 10px 0;
+      background: #e0e0e0;
+      border: none;
+      border-radius: 8px;
+      color: #333;
+      font-size: 16px;
+      outline: none;
+      transition: background 0.3s ease;
+    }
+
+   .user-login-box input:focus {
+      background: #ffffff;
+      box-shadow: 0 0 0 2px rgba(156, 39, 176, 0.2);
+    }
+
+    .user-login-box .button-container {
+      display: flex;
+      gap: 12px;
+      padding: 10px;
+      color: red;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    .user-login-box .submit-btn {
+      padding: 14px 24px;
+      margin: 10px;
+      width: 40%;
+      background: #2196f3;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    .user-login-box .submit-btn:hover {
+      background: #1976d2;
+      box-shadow: 2px 2px 5px #333;
+    }
+
+    .user-login-box .submit-btn:active {
+      transform: scale(0.98);
+    }
+
+    .user-login-box .cancel-btn {
+      padding: 14px 24px;
+      background: rgb(219, 37, 37);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 16px;
+      width: 40%;
+      font-weight: bold;
+      cursor: pointer;
+      
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+   .user-login-box .cancel-btn:hover {
+      /* background: #444; */
+       background: #d30808;
+      box-shadow: 2px 2px 5px #333;
+    }
+
+   .user-login-box .cancel-btn:active {
+      transform: scale(0.98);
+      
+    }
+
+ .user-login-box .signup-link {
+      margin-top: 20px;
+      text-align: center;
+      color: black;
+      font-size: 14px;
+    }
+
+  .user-login-box .signup-link a {
+      color: #9c27b0;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+   .user-login-box .signup-link a:hover {
+      text-decoration: underline;
+    }
+   .user-login-box .footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: black;
+    }
+    /* Welcome Text Styling */
+  .user-login-box .welcome-text h2 {
+      font-size: 2rem;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      color: #9c27b0;
+      text-align: left;
+    }
+
+    .user-login-box .welcome-text p {
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 300px;
+      text-align: left;
+    }
+    /* userLogin icon style */
+    /* Input group styling for username and password with icons */
+.user-login-box .input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.user-login-box .input-group i {
+  position: absolute;
+  left: 15px;
+  color: #666;
+  font-size: 1.2rem;
+  pointer-events: none; /* Prevent icon from blocking input clicks */
+}
+
+.user-login-box .input-group input {
+  width: 100%;
+  padding: 13px 17px 13px 45px; /* Extra left padding to make room for icon */
+  background: #e0e0e0;
+  border: none;
+  border-radius: 8px;
+  color: #333;
+  font-size: 16px;
+  outline: none;
+  transition: background 0.3s ease;
+}
+/* icon  Username & password */
+
+.user-login-box .input-group input:focus {
+  background: #ffffff;
+  box-shadow: 0 0 0 2px rgba(156, 39, 176, 0.2);
+}
+
+/* admin login styles */
+
+.admin-login-container, .admin-login-box {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   min-width: 100%;
+ }
+
+ .admin-login-box .container {
+      display: flex;
+      width: 100%;
+      max-width: 900px;
+      height: 500px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border: 3px solid #ff6b6b;
+    }
+
+   .admin-login-box .right-panel {
+      flex: 1;
+      background: rgb(204, 200, 200);
+      padding: 40px;
+      margin: -80px -40px -40px -15px;    
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: white;
+    }
+
+  .admin-login-box .left-panel {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.818); /* Dark green */
+      padding: 40px;
+      display: flex;
+      margin: -91px 0px -40px -40px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+    }
+
+  .admin-login-box h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      font-weight: 600;
+      color: #9c27b0; /* Purple like Image 2 */
+    }
+
+   .admin-login-box .form-group {
+      margin-bottom: 20px;
+    }
+
+    .admin-login-box label {
+      display: block;
+      margin-bottom: 8px;
+      color: #cccccc;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .admin-login-box input {
+      width: 100%;
+      padding: 13px 17px;
+      margin: 10px 0;
+      background: #e0e0e0;
+      border: none;
+      border-radius: 8px;
+      color: #333;
+      font-size: 16px;
+      outline: none;
+      transition: background 0.3s ease;
+    }
+
+    .admin-login-box input:focus {
+      background: #ffffff;
+      box-shadow: 0 0 0 2px rgba(156, 39, 176, 0.2);
+    }
+
+    .admin-login-box .button-container {
+      display: flex;
+      gap: 12px;
+      padding: 10px;
+      color: red;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    .admin-login-box .submit-btn {
+      padding: 14px 24px;
+      margin: 10px;
+      width: 40%;
+      background: #2196f3;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    .admin-login-box .login-btn:hover {
+      background: #1976d2;
+    }
+
+    .admin-login-box .login-btn:active {
+      transform: scale(0.98);
+    }
+
+    .admin-login-box .cancel-btn {
+      padding: 14px 24px;
+      background: rgb(219, 37, 37);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 16px;
+        width: 40%;
+      font-weight: bold;
+      cursor: pointer;
+      
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    .admin-login-box .cancel-btn:hover {
+      background: #d30808;
+      box-shadow: 2px 2px 5px #333;
+    }
+
+    .admin-login-box .cancel-btn:active {
+      transform: scale(0.98);
+    }
+
+    .admin-login-box .signup-link {
+      margin-top: 20px;
+      text-align: center;
+      color: black;
+      font-size: 14px;
+    }
+
+    .admin-login-box .signup-link a {
+      color: #9c27b0;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .admin-login-box .signup-link a:hover {
+      text-decoration: underline;
+    }
+     .admin-login-box .footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: black;
+    }
+
+    /* Admin Login Welcome Text Styling */
+  .admin-login-container .welcome-text h2 {
+      font-size: 2rem;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      color: #9c27b0;
+      text-align: left;
+    }
+
+    .admin-login-container .welcome-text h2  .welcome-text p {
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 300px;
+      text-align: left;
+    }
+
+/* Input group styling for username and password with icons */
+.admin-login-box .input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.admin-login-box .input-group i {
+  position: absolute;
+  left: 15px;
+  color: #666;
+  font-size: 1.2rem;
+  pointer-events: none; /* Prevent icon from blocking input clicks */
+}
+
+.admin-login-box .input-group input {
+  width: 100%;
+  padding: 13px 17px 13px 45px; /* Extra left padding to make room for icon */
+  background: #e0e0e0;
+  border: none;
+  border-radius: 8px;
+  color: #333;
+  font-size: 16px;
+  outline: none;
+  transition: background 0.3s ease;
+}
+/* icon  Username & password */
+
+.admin-login-box .input-group input:focus {
+  background: #ffffff;
+  box-shadow: 0 0 0 2px rgba(156, 39, 176, 0.2);
+}

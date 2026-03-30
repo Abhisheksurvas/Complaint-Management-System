@@ -1,0 +1,116 @@
+.status-page {
+  font-family: "Poppins", Arial, sans-serif;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.status-heading {
+  text-align: center;
+  font-size: 2.5rem;
+  padding: 10px;
+}
+
+.status-table {
+  width: 90%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.status-table th,
+.status-table td {
+  padding: 12px 16px;
+  color: black;
+  border: 1px solid #e0e0e0;
+}
+
+.status-table th {
+  background: #1a73e8;
+  color: white;
+}
+/* .status-table tr:hover {
+  background: #5b5d607b;
+  color: white;
+} */
+.status-table tr:hover {
+  background: #ffe6e6;
+}
+
+.status-select {
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+}
+
+.btn-post {
+  background: #1a73e8;
+  color: white;
+}
+
+.btn-post:hover {
+  background: #0d5bd7;
+}
+
+.btn-back {
+  background: white;
+  padding: 10px 20px;
+  margin: 10px;
+  color: #1a73e8;
+  border: 2px solid #1a73e8;
+}
+
+.btn-back:hover {
+  background: black;
+  color: white;
+}
+
+.btn-delete-all {
+  background: red;
+  color: white;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.btn-delete-all:hover {
+  background: darkred;
+}
+
+.top-btn {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.no-data {
+  text-align: center;
+  font-weight: bold;
+}
+
+.action-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.delete-icon {
+  font-size: 1.4rem;
+  color: rgba(255, 0, 0, 0.8);
+  cursor: pointer;
+}
+
+.delete-icon:hover {
+  color: red;
+  transform: scale(1.2);
+}

@@ -1,0 +1,85 @@
+/* Feedback.css */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4; /* Light background for contrast */
+  font-family: Arial, sans-serif;
+}
+
+.feedback-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 500px;
+  width: 90%; /* For smaller screens */
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1a73e8;
+}
+
+.feedback-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #1a73e8;
+  text-align: left; /* Align labels to the left */
+}
+
+.feedback-container input,
+.feedback-container textarea,
+.feedback-container select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #1a73e8;
+  border-radius: 4px;
+  text-align: left; /* Align inputs to the left */
+}
+
+.feedback-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.feedback-container button:hover {
+  background-color: #f51515; /* Hover background red */
+}
+
+.message {
+  color: green;
+  text-align: center;
+  margin-top: 10px;
+}
+/* Back Button Styling */
+.back-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4caf50; /* Green color for back button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.back-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}

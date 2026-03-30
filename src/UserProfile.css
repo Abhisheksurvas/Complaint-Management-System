@@ -1,0 +1,100 @@
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 20px;
+  background-color: var(--bg-color);
+}
+
+.profile-card {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.profile-card h2 {
+  margin-bottom: 30px;
+  font-size: 2rem;
+  color: var(--text-color);
+}
+
+.profile-picture-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.profile-picture {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--border-color);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-picture:hover {
+  border-color: #1a73e8;
+  box-shadow: 0 6px 15px rgba(26, 115, 232, 0.3);
+}
+
+.profile-card .info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.profile-card .info label {
+  font-weight: 600;
+  color: var(--secondary-text);
+}
+
+.profile-card .info span {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.profile-buttons {
+  margin-top: 30px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.back-btn, .edit-btn {
+  padding: 10px 25px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.back-btn {
+  background-color: var(--border-color);
+  color: var(--text-color);
+}
+
+.back-btn:hover {
+  background-color: var(--secondary-text);
+}
+
+.edit-btn {
+  background-color: #1a73e8;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #1557b0;
+  transform: translateY(-1px);
+}
