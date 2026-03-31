@@ -9,7 +9,40 @@ const ViewStatus = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [selectedComplaint, setSelectedComplaint] = useState(null);
+  const [editingComplaint, setEditingComplaint] = useState(null);
+  const [editFormData, setEditFormData] = useState({
+    complaintText: "",
+    location: "",
+    subLocation: "",
+    roomNo: "",
+    date: ""
+  });
   const navigate = useNavigate();
+
+  // Locations that require a sub-location (matching PostComplaint logic)
+  const locationsWithSub = ["college", "hostel", "gym", "bus"];
+
+  // Fetch status data
+  const fetchData = async () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const email = user ? user.email : "";
+    const username = user ? user.username : "";
+    
+    try {
+      const res = await fetch(`${API_BASE}/get-status?email=${email}&username=${username}`);
+      if (!res.ok) throw new Error("Failed to fetch status");
+      const data = await res.json();
+      setStatusData(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   // Delete single complaint
   const handleDelete = async (id) => {
@@ -39,22 +72,54 @@ const ViewStatus = () => {
     }
   };
 
-  // Delete all complaints
-  const handleDeleteAll = async () => {
-    if (!window.confirm("Delete ALL complaints?")) return;
+  // Edit logic
+  const handleEditClick = (item) => {
+    const complaint = typeof item.complaintId === "object" ? item.complaintId : {};
+    setEditingComplaint(item);
+    setEditFormData({
+      complaintText: complaint.complaintText || "",
+      location: complaint.location || "",
+      subLocation: item.subLocation || complaint.subLocation || "",
+      roomNo: complaint.roomNo || "",
+      date: complaint.date ? new Date(complaint.date).toISOString().split('T')[0] : ""
+    });
+  };
+
+  const handleEditChange = (e) => {
+    const { name, value } = e.target;
+    setEditFormData(prev => {
+      const updated = { ...prev, [name]: value };
+      if (name === "location") {
+        updated.subLocation = "";
+        updated.roomNo = "";
+      }
+      return updated;
+    });
+  };
+
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
+    const complaintId = typeof editingComplaint.complaintId === "string" 
+      ? editingComplaint.complaintId 
+      : editingComplaint.complaintId?._id;
 
     try {
-      const res = await fetch(`${API_BASE}/delete-all-complaints`, {
-        method: "DELETE",
+      const res = await fetch(`${API_BASE}/update-complaint/${complaintId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(editFormData),
       });
 
       if (res.ok) {
-        setStatusData([]);
+        alert("Complaint updated successfully!");
+        setEditingComplaint(null);
+        fetchData();
       } else {
-        alert("Failed to delete all complaints");
+        alert("Failed to update complaint");
       }
     } catch (err) {
       console.error(err);
+      alert("Error updating complaint");
     }
   };
 
@@ -66,6 +131,7 @@ const ViewStatus = () => {
   // Close modal
   const closeModal = () => {
     setSelectedComplaint(null);
+    setEditingComplaint(null);
   };
 
   // Get status configuration (color, icon, label)
@@ -82,22 +148,6 @@ const ViewStatus = () => {
 
     return config[statusLower] || { color: "#ffc107", bgColor: "#fff3cd", label: status, icon: "⟳", cardBorder: "#ffc107" };
   };
-
-  // Fetch status data
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    const email = user ? user.email : "";
-    const username = user ? user.username : "";
-    
-    fetch(`${API_BASE}/get-status?email=${email}&username=${username}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch status");
-        return res.json();
-      })
-      .then(setStatusData)
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
-  }, []);
 
   if (loading) return <div className="loading">Loading...</div>;
   if (error) return <div className="error-message">{error}</div>;
@@ -212,6 +262,12 @@ const ViewStatus = () => {
                     See Details
                   </button>
                   <button
+                    className="btn-edit"
+                    onClick={() => handleEditClick(item)}
+                  >
+                    Edit
+                  </button>
+                  <button
                     className="btn-delete"
                     onClick={() => handleDelete(complaintId)}
                   >
@@ -221,6 +277,108 @@ const ViewStatus = () => {
               </div>
             );
           })}
+        </div>
+      )}
+
+      {/* Modal for editing complaint details */}
+      {editingComplaint && (
+        <div className="modal show" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header edit-modal-header">
+              <h3>Edit Complaint</h3>
+              <button className="close-btn" onClick={closeModal}>
+                &times;
+              </button>
+            </div>
+            <div className="modal-body">
+              <form onSubmit={handleEditSubmit} className="edit-form">
+                <div className="form-group">
+                  <label>Date</label>
+                  <input 
+                    type="date" 
+                    name="date"
+                    value={editFormData.date} 
+                    onChange={handleEditChange} 
+                    required 
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label>Location</label>
+                  <select name="location" value={editFormData.location} onChange={handleEditChange} required>
+                    <option value="">Select Location</option>
+                    <option value="college">College</option>
+                    <option value="bus">Bus</option>
+                    <option value="library">Library</option>
+                    <option value="gym">GYM</option>
+                    <option value="canteen">Canteen</option>
+                    <option value="hostel">Hostel</option>
+                    <option value="mess">Mess</option>            
+                  </select>
+                </div>
+
+                {locationsWithSub.includes(editFormData.location) && (
+                  <div className="form-group">
+                    <label>Sub-Location</label>
+                    <select name="subLocation" value={editFormData.subLocation} onChange={handleEditChange} required>
+                      <option value="">Select SubLocation</option>
+                      {editFormData.location === 'college' && (
+                        <>
+                          <option value="CSE">CSE</option>
+                          <option value="ENTC">ENTC</option>
+                          <option value="ELE">ELE</option>
+                          <option value="MECH">MECH</option>
+                          <option value="CIVIL">CIVIL</option>
+                        </>
+                      )}
+                      {editFormData.location === 'bus' && <option value="college">College</option>}
+                      {editFormData.location === 'hostel' && (
+                        <>
+                          <option value="girls">Girls</option>
+                          <option value="boys">Boys</option>
+                        </>
+                      )}
+                      {editFormData.location === 'gym' && (
+                        <>
+                          <option value="girls">Girls</option>
+                          <option value="boys">Boys</option>
+                        </>
+                      )}
+                    </select>
+                  </div>
+                )}
+
+                {(editFormData.location === 'college' || editFormData.location === 'hostel') && editFormData.subLocation && (
+                  <div className="form-group">
+                    <label>Room Number</label>
+                    <input
+                      type="text"
+                      name="roomNo"
+                      placeholder="Room Number"
+                      value={editFormData.roomNo}
+                      onChange={handleEditChange}
+                    />
+                  </div>
+                )}
+
+                <div className="form-group">
+                  <label>Complaint Description</label>
+                  <textarea
+                    name="complaintText"
+                    placeholder="Describe your complaint..."
+                    value={editFormData.complaintText}
+                    onChange={handleEditChange}
+                    required
+                  />
+                </div>
+
+                <div className="modal-footer-buttons">
+                  <button type="submit" className="btn btn-save">Save Changes</button>
+                  <button type="button" onClick={closeModal} className="btn btn-cancel">Cancel</button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       )}
 

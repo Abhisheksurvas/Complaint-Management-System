@@ -10,6 +10,7 @@ const ViewEvents = () => {
   const [error, setError] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [editingEvent, setEditingEvent] = useState(null);
+  const [selectedEvent, setSelectedEvent] = useState(null);
   const [editFormData, setEditFormData] = useState({});
   
   const navigate = useNavigate();
@@ -54,6 +55,10 @@ const ViewEvents = () => {
     setEditFormData({ ...event });
   };
 
+  const handleViewClick = (event) => {
+    setSelectedEvent(event);
+  };
+
   const handleEditChange = (e) => {
     const { name, value } = e.target;
     setEditFormData(prev => ({ ...prev, [name]: value }));
@@ -73,32 +78,70 @@ const ViewEvents = () => {
   };
 
   const formatDate = (dateString) => {
-    if (!dateString) return "Invalid Date";
+    if (!dateString) return "N/A";
     const date = new Date(dateString);
-    return isNaN(date.getTime()) ? dateString : date.toLocaleDateString();
+    if (isNaN(date.getTime())) return dateString;
+    return date.toLocaleDateString('en-US', {
+      weekday: 'short',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
   };
 
   return (
     <div className="events-container">
       <div className="events-header">
         <h1>Upcoming Events</h1>
-        <button className="back-button" onClick={() => navigate(-1)}>Back</button>
+        <div className="header-actions">
+          <button className="back-button" onClick={() => navigate(-1)}>
+            <i className="ri-arrow-left-line"></i> Back
+          </button>
+        </div>
       </div>
 
-      {loading && <p className="status-message">Loading events...</p>}
-      {error && <p className="status-message error">{error}</p>}
+      {loading && (
+        <div className="status-container">
+          <div className="loader"></div>
+          <p className="status-message">Loading upcoming events...</p>
+        </div>
+      )}
+      
+      {error && (
+        <div className="status-container">
+          <p className="status-message error">{error}</p>
+          <button className="retry-btn" onClick={fetchEvents}>Retry</button>
+        </div>
+      )}
 
       <div className="events-list">
-        {events.length > 0 ? (
+        {!loading && !error && events.length > 0 ? (
           events.map((event) => (
             <div key={event._id} className="event-card">
+              <div className="event-badge">{event.department}</div>
               <div className="event-content">
                 <h2>{event.title}</h2>
-                <p className="event-detail"><strong>Date:</strong> {formatDate(event.date)}</p>
-                <p className="event-detail"><strong>Time:</strong> {event.time} {event.timePeriod}</p>
-                <p className="event-detail"><strong>Dept:</strong> {event.department}</p>
-                <p className="event-detail"><strong>Venue:</strong> {event.venue}</p>
-                <p className="event-detail"><strong>Desc:</strong> {event.description}</p>
+                <div className="event-info-grid">
+                  <div className="info-item">
+                    <i className="ri-calendar-line"></i>
+                    <span>{formatDate(event.date)}</span>
+                  </div>
+                  <div className="info-item">
+                    <i className="ri-time-line"></i>
+                    <span>{event.time} {event.timePeriod}</span>
+                  </div>
+                  <div className="info-item">
+                    <i className="ri-map-pin-line"></i>
+                    <span>{event.venue}</span>
+                  </div>
+                </div>
+                <p className="event-description">
+                  {event.description?.substring(0, 100)}
+                  {event.description?.length > 100 ? "..." : ""}
+                </p>
+                <button className="view-event-btn" onClick={() => handleViewClick(event)}>
+                   View Event
+                </button>
               </div>
               
               {isAdmin && (
@@ -117,6 +160,52 @@ const ViewEvents = () => {
           <p className="status-message">No events available.</p>
         ) : null}
       </div>
+
+      {/* View Modal */}
+      {selectedEvent && (
+        <div className="edit-modal-overlay" onClick={() => setSelectedEvent(null)}>
+          <div className="edit-modal view-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>{selectedEvent.title}</h2>
+              <button className="close-btn-minimal" onClick={() => setSelectedEvent(null)}>&times;</button>
+            </div>
+            <div className="event-detail-badge">{selectedEvent.department}</div>
+            
+            <div className="modal-info-grid">
+              <div className="info-group">
+                <i className="ri-calendar-line"></i>
+                <div className="info-content">
+                  <label>Date</label>
+                  <span>{formatDate(selectedEvent.date)}</span>
+                </div>
+              </div>
+              <div className="info-group">
+                <i className="ri-time-line"></i>
+                <div className="info-content">
+                  <label>Time</label>
+                  <span>{selectedEvent.time} {selectedEvent.timePeriod}</span>
+                </div>
+              </div>
+              <div className="info-group">
+                <i className="ri-map-pin-line"></i>
+                <div className="info-content">
+                  <label>Venue</label>
+                  <span>{selectedEvent.venue}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="modal-description">
+              <label>Description</label>
+              <p>{selectedEvent.description || "No description provided."}</p>
+            </div>
+
+            <div className="modal-buttons">
+              <button className="close-btn-primary" onClick={() => setSelectedEvent(null)}>Close</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Edit Modal */}
       {editingEvent && (

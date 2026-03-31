@@ -81,7 +81,7 @@ const Events = () => {
                 name="title"
                 value={eventDetails.title}
                 onChange={handleChange}
-                placeholder="e.g., Annual Tech Symposium 2026"
+                placeholder="Enter Event Title"
                 required
               />
             </div>

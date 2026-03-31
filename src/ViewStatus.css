@@ -142,7 +142,7 @@
 .btn-view {
   background-color: #2196F3;
   color: white;
-  padding: 8px 20px;
+  padding: 8px 15px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -154,10 +154,26 @@
   background-color: #1976D2;
 }
 
+.btn-edit {
+  background-color: #ffc107;
+  color: #333;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-edit:hover {
+  background-color: #e0a800;
+}
+
 .btn-delete {
   background-color: #f44336;
   color: white;
-  padding: 8px 20px;
+  padding: 8px 15px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -167,6 +183,68 @@
 
 .btn-delete:hover {
   background-color: #d32f2f;
+}
+
+/* ================================
+   EDIT MODAL SPECIFIC
+================================ */
+.edit-modal-header {
+  background-color: #ffc107 !important;
+  color: #333 !important;
+}
+
+.edit-modal-header .close-btn {
+  color: #333 !important;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.modal-footer-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-save {
+  background-color: #28a745;
+  color: white;
+  flex: 1;
+}
+
+.btn-cancel {
+  background-color: #6c757d;
+  color: white;
+  flex: 1;
 }
 
 /* ================================

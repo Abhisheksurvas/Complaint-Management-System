@@ -186,7 +186,7 @@ const PostComplaint = () => {
           />
 
           <div className="image-upload">
-            <label htmlFor="image">Upload Image:</label>
+            <label htmlFor="image">Upload Image (Optional):</label>
             <input type="file" id="image" accept="image/*" onChange={handleImageChange} />
             {preview && <img src={preview} alt="Preview" className="image-preview" />}
           </div>

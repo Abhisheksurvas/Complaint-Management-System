@@ -486,8 +486,20 @@ app.post("/admin/post-event", async (req, res) => {
 
 app.get("/events", async (req, res) => {
   try {
-    const events = await Event.find();
-    res.status(200).json({ success: true, events });
+    const allEvents = await Event.find();
+    
+    // Get current date at midnight for comparison
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+
+    const upcomingEvents = allEvents
+      .filter(event => {
+        const eventDate = new Date(event.date);
+        return eventDate >= now;
+      })
+      .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    res.status(200).json({ success: true, events: upcomingEvents });
   } catch (error) {
     console.error("Fetch Events Error:", error);
     res.status(500).json({ success: false, error: "Failed to fetch events" });
